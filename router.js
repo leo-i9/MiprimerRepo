@@ -4,7 +4,7 @@ export const router = Router();
 router.use(express.json());
 async function pp(n1="",n2=""){
   const browser = await puppeteer.launch({
-    args: ["--disable-web-security"],
+    args: ["'--no-sandbox', '--disable-setuid-sandbox'"],
     headless: true,
 });
 
@@ -17,7 +17,7 @@ await new Promise(resolve => setTimeout(async () => {
   await page.type("#searchboxinput", n1);
   resolve();
 }, 1000));
-
+await page.waitForSelector("#searchbox-searchbutton");
 await page.click("#searchbox-searchbutton");
 await page.waitForSelector(".g88MCb");
 await new Promise(resolve => setTimeout(async () => {
@@ -31,6 +31,7 @@ await new Promise(resolve => setTimeout(async () => {
   resolve();
 }, 1500));
 
+await page.waitForSelector(".j9zajd");
 await page.click(".j9zajd");
 await page.waitForSelector(".ivN21e div");
 let contenido = await page.$eval('.ivN21e div', div => div.textContent);

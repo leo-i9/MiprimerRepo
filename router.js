@@ -52,3 +52,7 @@ router.get("/buscar",async(req,res)=>{
       res.send("hola");
     }
 })
+
+router.get("/",(req,res)=>{
+    res.send({todo:"bien"})
+})

@@ -4,8 +4,13 @@ export const router = Router();
 router.use(express.json());
 async function pp(n1="",n2=""){
   const browser = await puppeteer.launch({
-    args: ["'--no-sandbox', '--disable-setuid-sandbox'"],
     headless: true,
+    devtools: true,
+    args: [
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins',
+        '--disable-site-isolation-trials'
+    ]
 });
 
 const page = await browser.newPage();

@@ -6,7 +6,7 @@ router.use(express.json());
 
 async function pp(n1="",n2=""){
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     devtools: false,
     args: [
         '--disable-web-security',

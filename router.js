@@ -8,8 +8,11 @@ async function  pp(n1="",n2=""){
         defaultViewport:{
             width:1902,
             height:1080
-        },args:["--disable-web-security"]
+        },args:["--disable-web-security"],
+        headless: false,
     })
+    await page.setBypassCSP(true);
+
     const page = await browser.newPage();
     await page.goto("https://www.google.com.mx/maps")
     await page.waitForSelector("#searchboxinput")

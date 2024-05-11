@@ -45,11 +45,16 @@ router.get("/buscar",async(req,res)=>{
     console.log(typeof n1, typeof n2);
     if (n1 && n2) {
       let c;
+      try{
+        
       await pp(n1, n2).then(e => {
-        console.log(e,"45");
+      
         c = e;
       });
-      console.log(c);
+      }catch(e){
+       c= "error"      
+      }
+      
       res.send({ number: c});
     } else {
       res.send("hola");

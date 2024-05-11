@@ -2,6 +2,8 @@ import puppeteer from "puppeteer";
 import express,{Router,json} from "express";
 export const router = Router();
 router.use(express.json());
+
+
 async function pp(n1="",n2=""){
   const browser = await puppeteer.launch({
     headless: true,
@@ -12,39 +14,46 @@ async function pp(n1="",n2=""){
         '--disable-site-isolation-trials',
         "--disable-features=BlockInsecurePrivateNetworkRequests"
     ]
-});
+  });
 
-const page = await browser.newPage();
-await page.setBypassCSP(true);
+  const page = await browser.newPage();
+  
+  // Habilitar la interceptación de solicitudes
+  await page.setRequestInterception(true);
+  
+  // Escuchar el evento 'request'
+  page.on('request', (request) => {
+    // Continuar la solicitud sin modificar los encabezados
+    request.continue();
+  });
 
-await page.goto("https://www.google.com.mx/maps");
-await page.waitForSelector("#searchboxinput");
-await new Promise(resolve => setTimeout(async () => {
-  await page.type("#searchboxinput", n1);
-  resolve();
-}, 1000));
-await page.waitForSelector("#searchbox-searchbutton");
-await page.click("#searchbox-searchbutton");
-await page.waitForSelector(".g88MCb");
-await new Promise(resolve => setTimeout(async () => {
-  await page.click(".g88MCb");
-  resolve();
-}, 500));
+  await page.goto("https://www.google.com.mx/maps");
+  await page.waitForSelector("#searchboxinput");
+  await new Promise(resolve => setTimeout(async () => {
+    await page.type("#searchboxinput", n1);
+    resolve();
+  }, 1000));
+  await page.waitForSelector("#searchbox-searchbutton");
+  await page.click("#searchbox-searchbutton");
+  await page.waitForSelector(".g88MCb");
+  await new Promise(resolve => setTimeout(async () => {
+    await page.click(".g88MCb");
+    resolve();
+  }, 500));
 
-await page.waitForSelector(".tactile-searchbox-input");
-await new Promise(resolve => setTimeout(async () => {
-  await page.type(".tactile-searchbox-input", n2);
-  resolve();
-}, 1500));
+  await page.waitForSelector(".tactile-searchbox-input");
+  await new Promise(resolve => setTimeout(async () => {
+    await page.type(".tactile-searchbox-input", n2);
+    resolve();
+  }, 1500));
 
-await page.waitForSelector(".j9zajd");
-await page.click(".j9zajd");
-await page.waitForSelector(".ivN21e div");
-let contenido = await page.$eval('.ivN21e div', div => div.textContent);
-contenido = parseInt(contenido);
-browser.close();
-return contenido;
-
+  await page.waitForSelector(".j9zajd");
+  await page.click(".j9zajd");
+  await page.waitForSelector(".ivN21e div");
+  let contenido = await page.$eval('.ivN21e div', div => div.textContent);
+  contenido = parseInt(contenido);
+  await browser.close();
+  return contenido;
 }
 
 router.get("/buscar",async(req,res)=>{

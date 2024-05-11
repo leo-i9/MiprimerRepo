@@ -60,7 +60,7 @@ router.get("/buscar",async(req,res)=>{
        c= "error"      
       }
       
-      res.send({ number: c});
+      res.send({n1,n2});
     } else {
       res.send("hola");
     }

@@ -8,7 +8,7 @@ async function  pp(n1="",n2=""){
         defaultViewport:{
             width:1902,
             height:1080
-        },args:["--window-size=1920,1080"]
+        },args:["--disable-web-security"]
     })
     const page = await browser.newPage();
     await page.goto("https://www.google.com.mx/maps")

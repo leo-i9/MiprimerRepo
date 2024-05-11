@@ -6,8 +6,8 @@ router.use(express.json());
 
 async function pp(n1="",n2=""){
   const browser = await puppeteer.launch({
-    headless: true,
-    devtools: true,
+    headless: false,
+    devtools: false,
     args: [
         '--disable-web-security',
         '--disable-features=IsolateOrigins',
@@ -33,27 +33,24 @@ async function pp(n1="",n2=""){
     await page.type("#searchboxinput", n1);
     resolve();
   }, 1000));
-  await page.waitForSelector("#searchbox-searchbutton");
-  await page.click("#searchbox-searchbutton");
-  await page.waitForSelector(".g88MCb");
   await new Promise(resolve => setTimeout(async () => {
-    await page.click(".g88MCb");
+    await page.click(".mL3xi")
     resolve();
-  }, 500));
-
-  await page.waitForSelector(".tactile-searchbox-input");
-  await new Promise(resolve => setTimeout(async () => {
-    await page.type(".tactile-searchbox-input", n2);
-    resolve();
-  }, 1500));
-
-  await page.waitForSelector(".j9zajd");
-  await page.click(".j9zajd");
-  await page.waitForSelector(".ivN21e div");
-  let contenido = await page.$eval('.ivN21e div', div => div.textContent);
-  contenido = parseInt(contenido);
-  await browser.close();
-  return contenido;
+  }, 1000));
+    await page.waitForSelector(".g88MCb.S9kvJb")
+    await page.click(".g88MCb.S9kvJb")
+    await new Promise(resolve => setTimeout(async () => {
+      await page.type(".tactile-searchbox-input",n2)
+      resolve();
+    }, 1000));
+    await new Promise(resolve => setTimeout(async () => {
+      await page.click(".j9zajd")
+      resolve();
+    }, 1000));
+    await page.waitForSelector(".ivN21e")
+    const contenido = await page.$eval('.ivN21e div', div => div.textContent);
+    browser.close();
+    return parseInt(contenido)
 }
 
 router.get("/buscar",async(req,res)=>{
@@ -68,14 +65,13 @@ router.get("/buscar",async(req,res)=>{
      
         
       await pp(n1, n2).then(e => {
-      
         c = e;
       });
      
-       c= "error"      
+             
     
       
-      res.send({n1,n2});
+      res.send({number:c});
     } else {
       res.send("hola");
     }

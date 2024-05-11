@@ -5,6 +5,7 @@
   "main": "node.js",
   "type": "module",
   "scripts": {
+    "install-puppeteer": "npx puppeteer browsers install chrome",
     "start": "nodemon node.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -5,10 +5,6 @@ router.use(express.json());
 async function pp(n1="",n2=""){
   const browser = await puppeteer.launch({
       headless: true,
-      defaultViewport: {
-          width: 1902,
-          height: 1080
-      },
       args: ["--disable-web-security"],
       headless: false,
   });
@@ -72,5 +68,5 @@ router.get("/",(req,res)=>{
   res.header('Access-Control-Allow-Origin', `*`); // Permite a todos los dominios
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.send({todo:"bien :) ---"})
+    res.send({todo:"bien :) xd"})
 })

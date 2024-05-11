@@ -39,7 +39,7 @@ async function  pp(n1="",n2=""){
 router.get("/buscar",async(req,res)=>{
   
   res.header('Access-Control-Allow-Origin', `*`); // Permite a todos los dominios
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
     const { n1, n2 } = req.query;
     console.log(typeof n1, typeof n2);

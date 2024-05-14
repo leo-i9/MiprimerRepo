@@ -4,6 +4,12 @@ export const router = Router();
 router.use(express.json());
 
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 async function pp(n1="",n2=""){
   const browser = await puppeteer.launch({
     headless: true,

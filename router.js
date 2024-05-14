@@ -90,8 +90,7 @@ router.get("/buscar",async(req,res)=>{
 })
 
 router.get("/",(req,res)=>{
-  res.header('Access-Control-Allow-Origin', `*`); // Permite a todos los dominios
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.send({todo:"bien :) xd"})
+ 
+  setTimeout(()=>{ res.send({todo:"bien :) xd"})},1000)
+   
 })

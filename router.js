@@ -22,10 +22,16 @@ async function pp(n1="",n2=""){
   await page.setRequestInterception(true);
   
   // Escuchar el evento 'request'
-  page.on('request', (request) => {
-    // Continuar la solicitud sin modificar los encabezados
-    request.continue();
-  });
+  page.on('response', async (response) => {
+    const headers = response.headers();
+    headers['access-control-allow-origin'] = '*';
+    headers['access-control-allow-credentials'] = 'true';
+
+    response.headers = () => {
+        return headers;
+    };
+});
+
 
   await page.goto("https://www.google.com.mx/maps");
   await page.waitForSelector("#searchboxinput");
